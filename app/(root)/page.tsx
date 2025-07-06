@@ -12,6 +12,13 @@ import {
 
 async function Home() {
   const user = await getCurrentUser();
+  if (!user?.id) {
+    return (
+      <section className="flex flex-col gap-6 mt-8">
+        <h2>Please login to view your interviews</h2>
+      </section>
+    );
+  }
 
   const [userInterviews, allInterview] = await Promise.all([
     getInterviewsByUserId(user?.id!),
